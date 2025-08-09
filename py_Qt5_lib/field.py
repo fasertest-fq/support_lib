@@ -23,7 +23,9 @@ class InputField(qw.QWidget):
         
         self.setLayout(self.layout)
         
-    def return_info(self):
+    def return_info(self, text_type='str'):
+        if text_type=='int':
+            return {self.label.text(): int(self.input_f.text())}
         return {self.label.text(): self.input_f.text()}
         
 class WLine(qw.QWidget):
@@ -44,13 +46,13 @@ class WLine(qw.QWidget):
         for name in self.name_list:
             self.layout.addWidget(InputField(name))
             
-    def get_info(self):
+    def get_info(self, text_type="str"):
         #for get information by textline
         widget_arr=self.findChildren(InputField)
         return_dict={}
         for widget_one in widget_arr:
             try:
-                temp_dict=widget_one.return_info()
+                temp_dict=widget_one.return_info(text_type)
                 return_dict.update(temp_dict)
             except:
                 pass
@@ -59,4 +61,4 @@ class WLine(qw.QWidget):
 
 
         
-#©created by fasertest-fq in 07.08.2025 23:24
+#©created by fasertest-fq in 09.08.2025 17:38
