@@ -12,21 +12,21 @@ class InputField(qw.QWidget):
 
     def __init__(self, name:str):
         super().__init__()
-        self.label = qw.QLabel()
-        self.label.setText(name)
-        self.input_f=qw.QLineEdit()
+        self._label = qw.QLabel()
+        self._label.setText(name)
+        self._input_f=qw.QLineEdit()
         
         
-        self.layout = qw.QHBoxLayout()
-        self.layout.addWidget(self.label)
-        self.layout.addWidget(self.input_f)
+        self._layout = qw.QHBoxLayout()
+        self._layout.addWidget(self._label)
+        self._layout.addWidget(self._input_f)
         
-        self.setLayout(self.layout)
+        self.setLayout(self._layout)
         
-    def return_info(self, text_type='str'):
+    def return_info(self, text_type='str') -> dict:
         if text_type=='int':
-            return {self.label.text(): int(self.input_f.text())}
-        return {self.label.text(): self.input_f.text()}
+            return {self._label.text(): int(self._input_f.text())}
+        return {self._label.text(): self._input_f.text()}
         
 class WLine(qw.QWidget):
     """
@@ -35,18 +35,18 @@ class WLine(qw.QWidget):
 
     def __init__(self, name_list:list):
         super().__init__()
-        self.name_list=name_list
+        self._name_list=name_list
         
-        self.layout=qw.QHBoxLayout()
-        self.setLayout(self.layout)
+        self._layout=qw.QHBoxLayout()
+        self.setLayout(self._layout)
         
         self.draw_Widgets()
         
     def draw_Widgets(self):
-        for name in self.name_list:
-            self.layout.addWidget(InputField(name))
+        for name in self._name_list:
+            self._layout.addWidget(InputField(name))
             
-    def get_info(self, text_type="str"):
+    def get_info(self, text_type="str") -> dict:
         #for get information by textline
         widget_arr=self.findChildren(InputField)
         return_dict={}
@@ -59,6 +59,48 @@ class WLine(qw.QWidget):
         return return_dict
 
 
+class FileLine(qw.QWidget):
+    """
+    For open/save file/directory. 
+    """
 
+    def __init__(self, name:str, mode:str):
+        super().__init__()
         
-#©created by fasertest-fq in 09.08.2025 17:38
+        self._name=name
+        self._mode=mode
+        
+        self._label=qw.QLabel()
+        self._label.setText(name)
+        self._textline=qw.QLineEdit()
+        self._button=qw.QPushButton('Выбрать', self) 
+        self._button.clicked.connect(self.file_function)
+        
+        self._layout=qw.QGridLayout()
+        self._layout.addWidget(self._label, 0, 0, 1, 2)
+        self._layout.addWidget(self._textline, 1, 0, 1, 2)
+        self._layout.addWidget(self._button, 1, 2, 1, 1)
+        
+        self.setLayout(self._layout)
+        
+    def file_function(self, ext="All Files (*)"):
+        if self._mode=='openFile':
+            self.filename, _ = qw.QFileDialog.getOpenFileName(self, "Open File", "", ext)
+            self._textline.insert(self.filename)
+            return self.filename
+        elif self._mode=='openDir':
+            self.drectory = qw.QFileDialog.getExistingDirectory(self, "Select Directory")
+            self._textline.insert(self.directory)
+            return self.directory
+        elif self._mode=='saveFile':
+            self.filename, _ = qw.QFileDialog.getSaveFileName(self, "Save File", "", ext)
+            self._textline.insert(self.filename)
+            return self.filename
+        return None
+            
+        
+        
+        
+        
+        
+#©created by fasertest-fq in 11.08.2025 21:50
