@@ -69,6 +69,8 @@ class FileLine(qw.QWidget):
         
         self._name=name
         self._mode=mode
+        self.filename=None
+        self.directory=None
         
         self._label=qw.QLabel()
         self._label.setText(name)
@@ -97,10 +99,17 @@ class FileLine(qw.QWidget):
             self._textline.insert(self.filename)
             return self.filename
         return None
+        
+    def get_info(self) -> dict:
+        if self._mode=='openFile' or self._mode=='saveFile':
+            return {self._mode: self.filename}
+        elif self._mode=='openDir':
+            return {self._mode: self.directory}
+        return None
             
         
         
         
         
         
-#©created by fasertest-fq in 11.08.2025 21:50
+#©created by fasertest-fq in 12.08.2025 22:17
