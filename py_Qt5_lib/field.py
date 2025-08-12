@@ -83,17 +83,17 @@ class FileLine(qw.QWidget):
         
         self.setLayout(self._layout)
         
-    def file_function(self, ext="All Files (*)"):
+    def file_function(self):
         if self._mode=='openFile':
-            self.filename, _ = qw.QFileDialog.getOpenFileName(self, "Open File", "", ext)
+            self.filename, _ = qw.QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")
             self._textline.insert(self.filename)
             return self.filename
         elif self._mode=='openDir':
-            self.drectory = qw.QFileDialog.getExistingDirectory(self, "Select Directory")
+            self.directory = qw.QFileDialog.getExistingDirectory(self, "Select Directory")
             self._textline.insert(self.directory)
             return self.directory
         elif self._mode=='saveFile':
-            self.filename, _ = qw.QFileDialog.getSaveFileName(self, "Save File", "", ext)
+            self.filename, _ = qw.QFileDialog.getSaveFileName(self, "Save File", "", "All Files (*)")
             self._textline.insert(self.filename)
             return self.filename
         return None
