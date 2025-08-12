@@ -105,11 +105,11 @@ class FileLine(qw.QWidget):
             return {self._mode: self.filename}
         elif self._mode=='openDir':
             return {self._mode: self.directory}
-        return None
+        return {"Error": None}
             
         
         
         
         
         
-#©created by fasertest-fq in 12.08.2025 22:17
+#©created by fasertest-fq in 12.08.2025 22:22
