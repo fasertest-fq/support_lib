@@ -64,13 +64,14 @@ class FileLine(qw.QWidget):
     For open/save file/directory. 
     """
 
-    def __init__(self, name:str, mode:str):
+    def __init__(self, name:str, mode:str, ext:str="All Files (*)"):
         super().__init__()
         
         self._name=name
         self._mode=mode
         self.filename=None
         self.directory=None
+        self._ext=ext
         
         self._label=qw.QLabel()
         self._label.setText(name)
@@ -87,7 +88,7 @@ class FileLine(qw.QWidget):
         
     def file_function(self):
         if self._mode=='openFile':
-            self.filename, _ = qw.QFileDialog.getOpenFileName(self, "Open File", "", "All Files (*)")
+            self.filename, _ = qw.QFileDialog.getOpenFileName(self, "Open File", "", self._ext)
             self._textline.insert(self.filename)
             return self.filename
         elif self._mode=='openDir':
@@ -95,7 +96,7 @@ class FileLine(qw.QWidget):
             self._textline.insert(self.directory)
             return self.directory
         elif self._mode=='saveFile':
-            self.filename, _ = qw.QFileDialog.getSaveFileName(self, "Save File", "", "All Files (*)")
+            self.filename, _ = qw.QFileDialog.getSaveFileName(self, "Save File", "", self._ext)
             self._textline.insert(self.filename)
             return self.filename
         return None
@@ -112,4 +113,4 @@ class FileLine(qw.QWidget):
         
         
         
-#©created by fasertest-fq in 12.08.2025 22:22
+#©created by fasertest-fq in 13.08.2025 21:35
