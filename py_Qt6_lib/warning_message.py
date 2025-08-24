@@ -1,6 +1,6 @@
 import PyQt6.QtWidgets as qw
 
-class Warning_Window(qw.QWidget):
+class WarningWindow(qw.QWidget):
     def __init__(self, e):
         super().__init__()
         self.setGeometry(300, 300, 400, 200)
@@ -19,4 +19,4 @@ class Warning_Window(qw.QWidget):
         
         
         
-#©created by fasertest-fq in 24.08.2025 18:56
+#©created by fasertest-fq in 24.08.2025 19:36
